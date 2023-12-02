@@ -73,24 +73,46 @@ int main(int argc, char *argv[])
     }
 
     fclose(file);
+    int total = 0;
 
     for (int i = 0; i < line_count; i++)
     {
         char *line = lines[i];
         int line_length = strlen(line);
-        int total = 0;
-        char first_digit_char, last_digit_char = '0';
+        char first_digit_char = '0';
+        char last_digit_char = '0';
+        char concated[3] = {};
 
         for (int j = 0; j < line_length; j++)
         {
             char c = line[j];
-            if (c <= '0' && c > '9')
+
+            if(c == '\0'){
+                continue;
+            }
+            
+            if (c <= '0' || c > '9')
             {
                 continue;
             }
-            printf("%c", c);
+            
+            if(first_digit_char == '0')
+            {
+                first_digit_char = c;
+            }
+
+            last_digit_char = c;
         }
+
+        concated[0] = first_digit_char;
+        concated[1] = last_digit_char;
+        concated[2] = '\0';
+
+        total += atoi(concated);
+
     }
+
+    printf("total: %d\n", total);
 
     return 0;
 }
